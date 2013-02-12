@@ -116,5 +116,12 @@ public class Ciudad {
 
 		return numeroCiudadesVecinas;
 	}
+	
+	public Map<String, Float> obtenerCiudadesVecinas(){
+		
+		return ciudadesVecinas;
+		
+	}
+
 
 }

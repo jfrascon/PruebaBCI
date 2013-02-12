@@ -1,0 +1,12 @@
+@Ciudades
+Albacete 1.000 2.000
+Almeria 3.000 4.000
+Badajoz 5.000 6.000
+Barcelona 7.000 8.000
+Bilbao 9.000 10.000
+Burgos 11.000 12.000
+Cordoba 13.000 14.000
+Granada 15.000 16.000
+@Carreteras
+Albacete Almeria
+Badajoz Granada
