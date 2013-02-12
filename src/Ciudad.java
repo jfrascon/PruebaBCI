@@ -86,20 +86,23 @@ public class Ciudad {
 
 	public void aniadirCiudadVecina(String ciudadVecina, float distancia) {
 
-		Float distanciaExistente = ciudadesVecinas.put(ciudadVecina, new Float(distancia));
-		
-		if ( distanciaExistente != null){
-			
-			System.out.println("Ya existia una entrada anterior para la ciudad " + ciudadVecina + " con distancia " + distancia);
-			
+		Float distanciaExistente = ciudadesVecinas.put(ciudadVecina, new Float(
+				distancia));
+
+		if (distanciaExistente != null) {
+
+			System.out.println("La ciudad " + this.getNombreCiudad()
+					+ " estaba unida con la ciudad " + ciudadVecina
+					+ " por una carretera de " + distancia + "km.");
+
 		}
 
 	}
-	
-	public void eliminarCiudadVecina(String ciudadVecina){
-		
+
+	public void eliminarCiudadVecina(String ciudadVecina) {
+
 		ciudadesVecinas.remove(ciudadVecina);
-		
+
 	}
 
 	public int numeroCiudadesVecinas() {
