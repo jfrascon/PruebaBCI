@@ -48,3 +48,6 @@ Me creo un usuario en el servidor que puede desempeñar todos los roles para pode
   <role rolename="managuer"/>
   <role rolename="managuer-gui"/>
   <user username="jfrascon" password="jfrascon" roles="admin,admin-gui,admin-script,manager,manager-gui"/>
+  
+-
+SGBD MySQL instalado en el Mac y enlazado con Eclipse para manejarlo de manera cómoda. BD pruebabiicode creada con usuario root y clave ``''. Tablas Carreteras y Ciudades creadas. Datos de ciudades y carreteras insertados en las tablas. Crear una función que main que use la base de datos en lugar de leer de fichero.
