@@ -74,39 +74,32 @@ public class Mapa {
 		return ciudades.get(nombreCiudad);
 	}
 
-	public String obtenerCamino(Map<String, String> ciudadesDijkstra,
-			String nombreCiudadDestino) {
+	public String obtenerCamino(Map<String, String> ciudadesDijkstra, String nombreCiudadDestino) {
 
-		if (nombreCiudadDestino == null
-				|| !ciudadesDijkstra.containsKey(nombreCiudadDestino)) {
+		if (nombreCiudadDestino == null || !ciudadesDijkstra.containsKey(nombreCiudadDestino)) {
 
 			return "No hay camino hasta el destino";
 
 		}
 
 		String camino = nombreCiudadDestino;
-		String nombreCiudadPadreDistanciaDesdeCiudadOrigen[] = ciudadesDijkstra
-				.get(nombreCiudadDestino).split(" ");
+		String nombreCiudadPadreDistanciaDesdeCiudadOrigen[] = ciudadesDijkstra.get(nombreCiudadDestino).split(" ");
 		String nombreCiudadPadre = nombreCiudadPadreDistanciaDesdeCiudadOrigen[0];
-		float distanciaDesdeCiudadOrigen = Float
-				.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]);
+		float distanciaDesdeCiudadOrigen = Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]);
 
 		while (nombreCiudadPadre.compareTo("?") != 0) {
 
 			camino = nombreCiudadPadre + "->" + camino;
-			nombreCiudadPadre = (String) ciudadesDijkstra
-					.get(nombreCiudadPadre).split(" ")[0];
+			nombreCiudadPadre = (String) ciudadesDijkstra.get(nombreCiudadPadre).split(" ")[0];
 		}
 
 		return camino + " ( " + distanciaDesdeCiudadOrigen + " km ) ";
 
 	}
 
-	public String algoritmoAEstrella(String nombreCiudadOrigen,
-			String nombreCiudadDestinto) {
+	public String algoritmoAEstrella(String nombreCiudadOrigen, String nombreCiudadDestinto) {
 
-		if (nombreCiudadOrigen == null || nombreCiudadDestinto == null
-				|| !ciudades.containsKey(nombreCiudadOrigen)
+		if (nombreCiudadOrigen == null || nombreCiudadDestinto == null || !ciudades.containsKey(nombreCiudadOrigen)
 				|| !ciudades.containsKey(nombreCiudadDestinto)) {
 
 			return "El origen y/o el destino no se encuentran en el mapa.";
@@ -142,11 +135,9 @@ public class Mapa {
 
 		float deltaY = 0.0f;
 
-		float coordXCiudadDestino = ciudades.get(nombreCiudadDestinto)
-				.getCoordX();
+		float coordXCiudadDestino = ciudades.get(nombreCiudadDestinto).getCoordX();
 
-		float coordYCiudadDestino = ciudades.get(nombreCiudadDestinto)
-				.getCoordY();
+		float coordYCiudadDestino = ciudades.get(nombreCiudadDestinto).getCoordY();
 
 		String nombreCiudadEscogida = "";
 
@@ -166,14 +157,11 @@ public class Mapa {
 
 				ciudadApuntada = it.next();
 
-				deltaX = ciudades.get(ciudadApuntada.getKey()).getCoordX()
-						- coordXCiudadDestino;
+				deltaX = ciudades.get(ciudadApuntada.getKey()).getCoordX() - coordXCiudadDestino;
 
-				deltaY = ciudades.get(ciudadApuntada.getKey()).getCoordY()
-						- coordYCiudadDestino;
+				deltaY = ciudades.get(ciudadApuntada.getKey()).getCoordY() - coordYCiudadDestino;
 
-				costeCiudad = ciudadApuntada.getValue()
-						+ (float) Math.hypot(deltaX, deltaY);
+				costeCiudad = ciudadApuntada.getValue() + (float) Math.hypot(deltaX, deltaY);
 
 				if (costeCiudad < costeMinimo) {
 
@@ -197,14 +185,12 @@ public class Mapa {
 				// Aniadir la ciudad apuntada de la lista cerrada, junto con la
 				// distancia
 				// que existe entre la ciudad de origen y ella,
-				ciudadesVisitadas.put(nombreCiudadEscogida,
-						g_distanciaAcumuladaTotal);
+				ciudadesVisitadas.put(nombreCiudadEscogida, g_distanciaAcumuladaTotal);
 
 				// Las ciudades vecinas de la ciudad escogida se deben aniadir a
 				// la lista abierta excepto aquellas que se hayan en la lista
 				// cerrada.
-				ciudadesVecinas = ciudades.get(nombreCiudadEscogida)
-						.obtenerCiudadesAdyacentes();
+				ciudadesVecinas = ciudades.get(nombreCiudadEscogida).obtenerCiudadesAdyacentes();
 
 				it = ciudadesVecinas.entrySet().iterator();
 
@@ -220,16 +206,14 @@ public class Mapa {
 
 						// Distancia desde la ciudad origen hasta la ciudad
 						// vecina apuntada.
-						distanciaAcumulada = g_distanciaAcumuladaTotal
-								+ ciudadApuntada.getValue();
+						distanciaAcumulada = g_distanciaAcumuladaTotal + ciudadApuntada.getValue();
 
 						// Comprobar si la lista abierta cotiene la ciudad
 						// vecina apuntada.
 						// En caso afirmativo continuar con las comprobaciones.
 						// En caso negativo, aniadir la ciudad vecina apuntada a
 						// la lista abierta.
-						if (ciudadesPendientes.containsKey(ciudadApuntada
-								.getKey())) {
+						if (ciudadesPendientes.containsKey(ciudadApuntada.getKey())) {
 
 							// La ciudad vecina apuntada se haya en la lista
 							// abierta.
@@ -239,18 +223,15 @@ public class Mapa {
 							// abierta.
 							// En caso afirmativo registrar la nueva distancia.
 							// En caso negativo ignorar el resultado.
-							if (distanciaAcumulada < ciudadesPendientes
-									.get(ciudadApuntada.getKey())) {
+							if (distanciaAcumulada < ciudadesPendientes.get(ciudadApuntada.getKey())) {
 
-								ciudadesPendientes.put(ciudadApuntada.getKey(),
-										distanciaAcumulada);
+								ciudadesPendientes.put(ciudadApuntada.getKey(), distanciaAcumulada);
 
 							}
 
 						} else {
 
-							ciudadesPendientes.put(ciudadApuntada.getKey(),
-									distanciaAcumulada);
+							ciudadesPendientes.put(ciudadApuntada.getKey(), distanciaAcumulada);
 
 						}
 
@@ -269,8 +250,7 @@ public class Mapa {
 	public Map<String, String> dijkstra(String nombreCiudadOrigen) {
 
 		// Gestion de errores.
-		if (nombreCiudadOrigen == null
-				|| !ciudades.containsKey(nombreCiudadOrigen)) {
+		if (nombreCiudadOrigen == null || !ciudades.containsKey(nombreCiudadOrigen)) {
 
 			return null;
 		}
@@ -314,28 +294,17 @@ public class Mapa {
 		itSS = ciudadesDijkstra.entrySet().iterator();
 		while (itSS.hasNext()) {
 			entrySS = itSS.next();
-			nombreCiudadPadreDistanciaDesdeCiudadOrigen = entrySS.getValue()
-					.split(" ");
+			nombreCiudadPadreDistanciaDesdeCiudadOrigen = entrySS.getValue().split(" ");
 
 			b = ciudadesVisitadas.containsKey(entrySS.getKey());
 
 			if (b) {
-				System.out
-						.println("* "
-								+ entrySS.getKey()
-								+ " "
-								+ nombreCiudadPadreDistanciaDesdeCiudadOrigen[0]
-								+ " "
-								+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
+				System.out.println("* " + entrySS.getKey() + " " + nombreCiudadPadreDistanciaDesdeCiudadOrigen[0] + " "
+						+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
 			} else {
 
-				System.out
-						.println("  "
-								+ entrySS.getKey()
-								+ " "
-								+ nombreCiudadPadreDistanciaDesdeCiudadOrigen[0]
-								+ " "
-								+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
+				System.out.println("  " + entrySS.getKey() + " " + nombreCiudadPadreDistanciaDesdeCiudadOrigen[0] + " "
+						+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
 
 			}
 		}
@@ -344,8 +313,7 @@ public class Mapa {
 		// La ciudad origen no tiene ciudad predecesora y dista 0 km de
 		// ella misma.
 		// En la clave nombreCiudadPadre vale ?
-		ciudadesDijkstra
-				.put(nombreCiudadOrigen, "? " + new Float(0).toString());
+		ciudadesDijkstra.put(nombreCiudadOrigen, "? " + new Float(0).toString());
 		// Registrar la ciudad origen como visitada.
 		ciudadesVisitadas.put(nombreCiudadOrigen, "");
 		numeroCiudadesVisitadas = 1;
@@ -355,28 +323,17 @@ public class Mapa {
 		itSS = ciudadesDijkstra.entrySet().iterator();
 		while (itSS.hasNext()) {
 			entrySS = itSS.next();
-			nombreCiudadPadreDistanciaDesdeCiudadOrigen = entrySS.getValue()
-					.split(" ");
+			nombreCiudadPadreDistanciaDesdeCiudadOrigen = entrySS.getValue().split(" ");
 
 			b = ciudadesVisitadas.containsKey(entrySS.getKey());
 
 			if (b) {
-				System.out
-						.println("* "
-								+ entrySS.getKey()
-								+ " "
-								+ nombreCiudadPadreDistanciaDesdeCiudadOrigen[0]
-								+ " "
-								+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
+				System.out.println("* " + entrySS.getKey() + " " + nombreCiudadPadreDistanciaDesdeCiudadOrigen[0] + " "
+						+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
 			} else {
 
-				System.out
-						.println("  "
-								+ entrySS.getKey()
-								+ " "
-								+ nombreCiudadPadreDistanciaDesdeCiudadOrigen[0]
-								+ " "
-								+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
+				System.out.println("  " + entrySS.getKey() + " " + nombreCiudadPadreDistanciaDesdeCiudadOrigen[0] + " "
+						+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
 
 			}
 		}
@@ -385,16 +342,14 @@ public class Mapa {
 		// Obtener las ciudades adyacentes a la ciudad origen.
 		// Cada ciudad es asociada con la ciudad padre y con la
 		// distancia desde la ciudad origen hasta ella.
-		ciudadesAdyacentes = ciudades.get(nombreCiudadOrigen)
-				.obtenerCiudadesAdyacentes();
+		ciudadesAdyacentes = ciudades.get(nombreCiudadOrigen).obtenerCiudadesAdyacentes();
 		itSFCA = ciudadesAdyacentes.entrySet().iterator();
 
 		while (itSFCA.hasNext()) {
 
 			entrySFCA = itSFCA.next();
 
-			ciudadesDijkstra.put(entrySFCA.getKey(), nombreCiudadOrigen + " "
-					+ entrySFCA.getValue().toString());
+			ciudadesDijkstra.put(entrySFCA.getKey(), nombreCiudadOrigen + " " + entrySFCA.getValue().toString());
 		}
 
 		// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
@@ -402,28 +357,17 @@ public class Mapa {
 		itSS = ciudadesDijkstra.entrySet().iterator();
 		while (itSS.hasNext()) {
 			entrySS = itSS.next();
-			nombreCiudadPadreDistanciaDesdeCiudadOrigen = entrySS.getValue()
-					.split(" ");
+			nombreCiudadPadreDistanciaDesdeCiudadOrigen = entrySS.getValue().split(" ");
 
 			b = ciudadesVisitadas.containsKey(entrySS.getKey());
 
 			if (b) {
-				System.out
-						.println("* "
-								+ entrySS.getKey()
-								+ " "
-								+ nombreCiudadPadreDistanciaDesdeCiudadOrigen[0]
-								+ " "
-								+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
+				System.out.println("* " + entrySS.getKey() + " " + nombreCiudadPadreDistanciaDesdeCiudadOrigen[0] + " "
+						+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
 			} else {
 
-				System.out
-						.println("  "
-								+ entrySS.getKey()
-								+ " "
-								+ nombreCiudadPadreDistanciaDesdeCiudadOrigen[0]
-								+ " "
-								+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
+				System.out.println("  " + entrySS.getKey() + " " + nombreCiudadPadreDistanciaDesdeCiudadOrigen[0] + " "
+						+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
 
 			}
 		}
@@ -437,14 +381,11 @@ public class Mapa {
 			itSS = ciudadesDijkstra.entrySet().iterator();
 			while (itSS.hasNext()) {
 				entrySS = itSS.next();
-				nombreCiudadPadreDistanciaDesdeCiudadOrigen = entrySS
-						.getValue().split(" ");
-				distanciaDesdeCiudadOrigen = Float
-						.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]);
+				nombreCiudadPadreDistanciaDesdeCiudadOrigen = entrySS.getValue().split(" ");
+				distanciaDesdeCiudadOrigen = Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]);
 
 				// distanciaDesdeCiudadOrigen != -1 significa ciudad descubierta
-				if (distanciaDesdeCiudadOrigen != -1
-						&& !ciudadesVisitadas.containsKey(entrySS.getKey())
+				if (distanciaDesdeCiudadOrigen != -1 && !ciudadesVisitadas.containsKey(entrySS.getKey())
 						&& distanciaDesdeCiudadOrigen < distanciaDesdeCiudadOrigenMinima) {
 
 					distanciaDesdeCiudadOrigenMinima = distanciaDesdeCiudadOrigen;
@@ -452,8 +393,9 @@ public class Mapa {
 				}
 
 			}
-			
-			System.out.println();
+
+			System.out.println("\n----- ----- ----- ----- ----- ");
+			System.out.println("\n" + nombreCiudadSeleccionada + " " + distanciaDesdeCiudadOrigenMinima);
 
 			// Marcar la ciudad adyacente seleccionada como visitada.
 			ciudadesVisitadas.put(nombreCiudadSeleccionada, "");
@@ -464,28 +406,17 @@ public class Mapa {
 			itSS = ciudadesDijkstra.entrySet().iterator();
 			while (itSS.hasNext()) {
 				entrySS = itSS.next();
-				nombreCiudadPadreDistanciaDesdeCiudadOrigen = entrySS
-						.getValue().split(" ");
+				nombreCiudadPadreDistanciaDesdeCiudadOrigen = entrySS.getValue().split(" ");
 
 				b = ciudadesVisitadas.containsKey(entrySS.getKey());
 
 				if (b) {
-					System.out
-							.println("* "
-									+ entrySS.getKey()
-									+ " "
-									+ nombreCiudadPadreDistanciaDesdeCiudadOrigen[0]
-									+ " "
-									+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
+					System.out.println("* " + entrySS.getKey() + " " + nombreCiudadPadreDistanciaDesdeCiudadOrigen[0] + " "
+							+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
 				} else {
 
-					System.out
-							.println("  "
-									+ entrySS.getKey()
-									+ " "
-									+ nombreCiudadPadreDistanciaDesdeCiudadOrigen[0]
-									+ " "
-									+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
+					System.out.println("  " + entrySS.getKey() + " " + nombreCiudadPadreDistanciaDesdeCiudadOrigen[0] + " "
+							+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
 
 				}
 			}
@@ -495,21 +426,26 @@ public class Mapa {
 			// decidir si resulta mejor el camino calculado antes o si es
 			// mejor usar el camino que lleva a la ciudad actual seleccionada y
 			// a continuacion usar el arco que las une.
-			distanciaDesdeCiudadOrigen = distanciaDesdeCiudadOrigenMinima;
-			ciudadesAdyacentes = ciudades.get(nombreCiudadSeleccionada)
-					.obtenerCiudadesAdyacentes();
+			System.out.println("\nObtener las ciudades adyacentes a " + nombreCiudadSeleccionada);
+			ciudadesAdyacentes = ciudades.get(nombreCiudadSeleccionada).obtenerCiudadesAdyacentes();
 			itSFCA = ciudadesAdyacentes.entrySet().iterator();
 			while (itSFCA.hasNext()) {
 				entrySFCA = itSFCA.next();
+				// Reseteo del valor de la variable 'distanciaDesdeCiudadOrigen'
+				// que debe almacenar la distancia desde la ciudad origen a la
+				// ciudad seleccionada antes de averiguar cuanto camino existe
+				// entre esta ultima y sus ciudades adyacentes. El valor que
+				// debe guardarse en la variable 'distanciaDesdeCiudadOrigen' se
+				// hallo en el bucle anterior y reside en la variable
+				// 'distanciaDesdeCiudadOrigenMinima'.
+				distanciaDesdeCiudadOrigen = distanciaDesdeCiudadOrigenMinima;
+				System.out.print(entrySFCA.getKey() + ": ");
 				// Ciudad adyacente no visitada
 				if (!ciudadesVisitadas.containsKey(entrySFCA.getKey())) {
-
-					distanciaDesdeCiudadOrigen += entrySFCA.getValue()
-							.floatValue();
-					distanciaDesdeCiudadOrigenAnterior = Float
-							.parseFloat(ciudadesDijkstra
-									.get(entrySFCA.getKey()).split(" ")[1]);
-
+					System.out.print("No visitada antes.");
+					distanciaDesdeCiudadOrigen += entrySFCA.getValue().floatValue();
+					distanciaDesdeCiudadOrigenAnterior = Float.parseFloat(ciudadesDijkstra.get(entrySFCA.getKey()).split(" ")[1]);
+					System.out.println(distanciaDesdeCiudadOrigenAnterior + " " + distanciaDesdeCiudadOrigen);
 					// Si distanciaDesdeCiudadOrigenAnterior != -1 entonces
 					// la ciudad adyacente que se esta procesando ya fue
 					// considerada como ciudad adyacente en un
@@ -518,24 +454,16 @@ public class Mapa {
 
 						if (distanciaDesdeCiudadOrigen < distanciaDesdeCiudadOrigenAnterior) {
 
-							ciudadesDijkstra.put(
-									entrySFCA.getKey(),
-									nombreCiudadSeleccionada
-											+ " "
-											+ new Float(
-													distanciaDesdeCiudadOrigen)
-													.toString());
+							ciudadesDijkstra.put(entrySFCA.getKey(), nombreCiudadSeleccionada + " " + new Float(distanciaDesdeCiudadOrigen).toString());
 
 						}
 					} else {
 
-						ciudadesDijkstra.put(
-								entrySFCA.getKey(),
-								nombreCiudadSeleccionada
-										+ " "
-										+ new Float(distanciaDesdeCiudadOrigen)
-												.toString());
+						ciudadesDijkstra.put(entrySFCA.getKey(), nombreCiudadSeleccionada + " " + new Float(distanciaDesdeCiudadOrigen).toString());
 					}
+
+				} else {
+					System.out.println("Si visitada antes.");
 				}
 			}
 
@@ -544,28 +472,17 @@ public class Mapa {
 			itSS = ciudadesDijkstra.entrySet().iterator();
 			while (itSS.hasNext()) {
 				entrySS = itSS.next();
-				nombreCiudadPadreDistanciaDesdeCiudadOrigen = entrySS
-						.getValue().split(" ");
+				nombreCiudadPadreDistanciaDesdeCiudadOrigen = entrySS.getValue().split(" ");
 
 				b = ciudadesVisitadas.containsKey(entrySS.getKey());
 
 				if (b) {
-					System.out
-							.println("* "
-									+ entrySS.getKey()
-									+ " "
-									+ nombreCiudadPadreDistanciaDesdeCiudadOrigen[0]
-									+ " "
-									+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
+					System.out.println("* " + entrySS.getKey() + " " + nombreCiudadPadreDistanciaDesdeCiudadOrigen[0] + " "
+							+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
 				} else {
 
-					System.out
-							.println("  "
-									+ entrySS.getKey()
-									+ " "
-									+ nombreCiudadPadreDistanciaDesdeCiudadOrigen[0]
-									+ " "
-									+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
+					System.out.println("  " + entrySS.getKey() + " " + nombreCiudadPadreDistanciaDesdeCiudadOrigen[0] + " "
+							+ Float.parseFloat(nombreCiudadPadreDistanciaDesdeCiudadOrigen[1]));
 
 				}
 			}
