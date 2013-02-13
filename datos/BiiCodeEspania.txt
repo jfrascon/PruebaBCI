@@ -1,12 +1,52 @@
 @Ciudades
-Albacete 1.000 2.000
-Almeria 3.000 4.000
-Badajoz 5.000 6.000
-Barcelona 7.000 8.000
-Bilbao 9.000 10.000
-Burgos 11.000 12.000
-Cordoba 13.000 14.000
-Granada 15.000 16.000
+Vigo -427.565 190.870
+Oviedo -185.972 314.726
+Bilbao 65.115 305.826
+Zaragoza 238.036 125.383
+Barcelona 498.305 94.228
+Valencia 278.942 -118.063
+Albacete 156.221 -169.231
+Murcia 215.841 -282.180
+Almeria 102.298 -410.407
+Granada 10.846 -373.286
+Malaga -65.343 -426.079
+Cordoba -91.211 -297.611
+Sevilla -195.320 -351.877
+Huelva -277.136 -361.604
+Madrid 0.000 0.000
+Badajoz -278.995 -184.443
+Salamanca -167.378 48.225
+Valladolid -85.679 132.823
+Burgos 0 209.177
 @Carreteras
-Albacete Almeria
-Badajoz Granada
+Vigo Oviedo
+Oviedo Bilbao
+Bilbao Zaragoza
+Zaragoza Barcelona
+Barcelona Valencia
+Valencia Albacete
+Albacete Murcia
+Murcia Almeria
+Almeria Granada
+Granada Malaga
+Malaga Huelva
+Huelva Sevilla
+Sevilla Cordoba
+Cordoba Madrid
+Madrid Badajoz
+Badajoz Salamanca
+Salamanca Valladolid
+Valladolid Burgos
+Burgos Vigo
+Burgos Oviedo
+Burgos Bilbao
+Burgos Zaragoza
+Madrid Salamanca
+Madrid Valladolid
+Madrid Burgos
+Madrid Zaragoza
+Madrid Albacete
+Almeria Malaga
+Cordoba Granada
+Huelva Badajoz
+Sevilla Malaga

@@ -11,14 +11,14 @@ public class Ciudad {
 	private String nombreCiudad;
 	private float coordX;
 	private float coordY;
-	private Map<String, Float> ciudadesVecinas;
+	private Map<String, Float> ciudadesAdyacentes;
 
 	Ciudad(String nombreCiudad, float coordX, float coordY) {
 
 		this.nombreCiudad = nombreCiudad;
 		this.coordX = coordX;
 		this.coordY = coordY;
-		ciudadesVecinas = new HashMap<String, Float>();
+		ciudadesAdyacentes = new HashMap<String, Float>();
 	}
 
 	Ciudad() {
@@ -26,7 +26,7 @@ public class Ciudad {
 		this.nombreCiudad = null;
 		this.coordX = 0;
 		this.coordY = 0;
-		ciudadesVecinas = new HashMap<String, Float>();
+		ciudadesAdyacentes = new HashMap<String, Float>();
 	}
 
 	/**
@@ -84,44 +84,29 @@ public class Ciudad {
 		this.coordX = coordX;
 	}
 
-	public void aniadirCiudadVecina(String ciudadVecina, float distancia) {
+	public void aniadirCiudadAdyacente(String nombreCiudadVecina,
+			float distanciaKM) {
 
-		Float distanciaExistente = ciudadesVecinas.put(ciudadVecina, new Float(
-				distancia));
-
-		if (distanciaExistente != null) {
-
-			System.out.println("La ciudad " + this.getNombreCiudad()
-					+ " estaba unida con la ciudad " + ciudadVecina
-					+ " por una carretera de " + distancia + "km.");
-
-		}
+		ciudadesAdyacentes.put(nombreCiudadVecina, new Float(distanciaKM));
 
 	}
 
 	public void eliminarCiudadVecina(String ciudadVecina) {
 
-		ciudadesVecinas.remove(ciudadVecina);
+		ciudadesAdyacentes.remove(ciudadVecina);
 
 	}
 
 	public int numeroCiudadesVecinas() {
 
-		int numeroCiudadesVecinas = 0;
+		return ciudadesAdyacentes.size();
 
-		if (ciudadesVecinas != null) {
-
-			numeroCiudadesVecinas = ciudadesVecinas.size();
-		}
-
-		return numeroCiudadesVecinas;
-	}
-	
-	public Map<String, Float> obtenerCiudadesVecinas(){
-		
-		return ciudadesVecinas;
-		
 	}
 
+	public Map<String, Float> obtenerCiudadesAdyacentes() {
+
+		return ciudadesAdyacentes;
+
+	}
 
 }
