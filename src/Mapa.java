@@ -189,7 +189,7 @@ public class Mapa {
 		float distanciaDesdeCiudadOrigenAnterior = 0.0f;
 		float distanciaDesdeCiudadOrigenMinima = 0.0f;
 
-		boolean flagDepuracion = false;
+		// boolean flagDepuracion = false;
 
 		Map<String, String> ciudadesDijkstra = new HashMap<String, String>();
 		Map<String, String> ciudadesVisitadas = new HashMap<String, String>();
@@ -406,7 +406,7 @@ public class Mapa {
 			return "El origen y/o el destino no se encuentran en el mapa.";
 		}
 
-		if (nombreCiudadOrigen.equals(nombreCiudadDestinto)) {
+		if (nombreCiudadOrigen.compareTo(nombreCiudadDestinto) == 0) {
 
 			return "Se encuentra en su destinto.";
 
@@ -472,7 +472,7 @@ public class Mapa {
 				}
 			}
 
-			if (nombreCiudadEscogida.equals(nombreCiudadDestinto)) {
+			if (nombreCiudadEscogida.compareTo(nombreCiudadDestinto) == 0) {
 
 				// AQUI ACABA LA FUNCION.
 				return "";

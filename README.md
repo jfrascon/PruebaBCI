@@ -24,3 +24,10 @@ Javadoc finalizado de la clase Ciudad.
 
 -
 Javadoc finalizado de la clase Mapa.
+
+-
+Documentando el fichero que contiene la funcion main.
+Cambio la función equals de la clase String por compareTo de la misma
+clase porque ésta última es más ligera. Cambio la función substring de
+la clase String por split de la misma clase porque ésta última es
+más ligera. 
