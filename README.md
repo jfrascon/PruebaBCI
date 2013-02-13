@@ -38,3 +38,13 @@ Proximos pasos:
 Descargar el SGBD MySQL en el Mac el instalarla.
 Crear la BD de la aplicación, es decir, las tablas que contengan las ciudades y carreteras empleando un script que automatice el proceso.
 Conectar el Eclipse con la base de datos a través del JDBC.
+
+-
+Tomcat 7 instalado en el Mac e integrado en eclipse para poder encender y apagar de manera cómoda. 
+Me creo un usuario en el servidor que puede desempeñar todos los roles para poder tener acceso completo a la funcionalidad del servidor.
+  <role rolename="admin"/>
+  <role rolename="admin-gui"/>
+  <role rolename="admin-script"/>
+  <role rolename="managuer"/>
+  <role rolename="managuer-gui"/>
+  <user username="jfrascon" password="jfrascon" roles="admin,admin-gui,admin-script,manager,manager-gui"/>
