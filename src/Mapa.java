@@ -144,7 +144,7 @@ public class Mapa {
 		if (ciudadesDijkstra == null || nombreCiudadDestino == null || !ciudadesDijkstra.containsKey(nombreCiudadDestino)) {
 
 			return "No existe un camino hasta la ciudad " + nombreCiudadDestino
-					+ ". Asegurese de que la ciudad origen y la ciudad destinto existan en el mapa.\n";
+					+ ". Asegurese de que la ciudad origen y la ciudad destinto existen en el mapa";
 
 		}
 		// Guardar el nombre de la ciudad destino y recorrer el registro 'ciudadesDijkstra' en orde inverso, i.e desde
@@ -403,7 +403,7 @@ public class Mapa {
 		if (nombreCiudadOrigen == null || nombreCiudadDestinto == null || !ciudades.containsKey(nombreCiudadOrigen)
 				|| !ciudades.containsKey(nombreCiudadDestinto)) {
 
-			return "El origen y/o el destino no se encuentran en el mapa.";
+			return "El origen y/o el destino no se encuentran en el mapa";
 		}
 
 		if (nombreCiudadOrigen.compareTo(nombreCiudadDestinto) == 0) {

@@ -31,3 +31,10 @@ Cambio la función equals de la clase String por compareTo de la misma
 clase porque ésta última es más ligera. Cambio la función substring de
 la clase String por split de la misma clase porque ésta última es
 más ligera. 
+
+-
+El fichero que tiene la funcion main esta comentado por completo. He terminado de implementar el menú por consola. He probado la aplicación en varias ocasiones y funciona bien. 
+Proximos pasos:
+Descargar el SGBD MySQL en el Mac el instalarla.
+Crear la BD de la aplicación, es decir, las tablas que contengan las ciudades y carreteras empleando un script que automatice el proceso.
+Conectar el Eclipse con la base de datos a través del JDBC.

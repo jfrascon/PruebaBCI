@@ -2,11 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 public class PruebaTerminal {
 
@@ -14,35 +12,32 @@ public class PruebaTerminal {
 
 		boolean inicioCiudades = false;
 		boolean inicioCarreteras = false;
-		int posEspacioBlanco1 = 0;
-		int posEspacioBlanco2 = 0;
 		int numCarreterasProcesadas = 0;
-		float coordX = 0.0f;
-		float coordY = 0.0f;
-		BufferedReader br = null;
-		String cadenaFichero = null;
+		BufferedReader brFichero = null;
+		BufferedReader brConsola = null;
+		String cadenaLeida = null;
 		String nombreCiudadA = null;
 		String nombreCiudadB = null;
-		String[] nombreCiudadCoordenadas = null;
+		String[] cadenasExtraidas = null;
 
 		// Grafo de nodos de tipo ciudad.
 		Mapa mapaEspania = new Mapa();
 
 		// Lectura del fichero de ciudades y carreteras.
 		try {
-			br = new BufferedReader(new FileReader(args[0]));
+			brFichero = new BufferedReader(new FileReader(args[0]));
 			// Posicionar el puntero del fichero sobre la cadena @Ciudades. Con este bucle evito las l’neas en blanco
 			// que pudiera tener el fichero antes de la cadena "@Ciudades". Si la primera l’nea con texto del fichero no
 			// es @Ciudades entonces el fichero tiene un formato inv‡lido y acabo con la funcion main.
-			while (!inicioCiudades && (cadenaFichero = br.readLine()) != null) {
+			while (!inicioCiudades && (cadenaLeida = brFichero.readLine()) != null) {
 				// Sin espacios en blanco. Una linea en blanco tras la funcion trim() se queda en "" (cadena vac’a).
-				cadenaFichero = cadenaFichero.trim();
-				if (cadenaFichero.compareTo("") != 0) {
-					if (cadenaFichero.compareTo("@Ciudades") == 0) {
+				cadenaLeida = cadenaLeida.trim();
+				if (cadenaLeida.compareTo("") != 0) {
+					if (cadenaLeida.compareTo("@Ciudades") == 0) {
 						inicioCiudades = true;
 					} else {
 						// Formato de fichero invalido.
-						br.close();
+						brFichero.close();
 						System.out.println("Formato de fichero invalido");
 						return;
 					}
@@ -52,40 +47,26 @@ public class PruebaTerminal {
 			// false. Indicar que la funcion acabo sin exito.
 			if (inicioCiudades) {
 				// Leer las ciudades que se encuentras tras la cadena @Ciudades.
-				while (!inicioCarreteras && (cadenaFichero = br.readLine()) != null) {
-					cadenaFichero = cadenaFichero.trim();
+				while (!inicioCarreteras && (cadenaLeida = brFichero.readLine()) != null) {
+					cadenaLeida = cadenaLeida.trim();
 					// Si se trata de una linea vac’a no hacer nada.
-					if (cadenaFichero.compareTo("") != 0) {
-						if (cadenaFichero.compareTo("@Carreteras") == 0) {
+					if (cadenaLeida.compareTo("") != 0) {
+						if (cadenaLeida.compareTo("@Carreteras") == 0) {
 							inicioCarreteras = true;
 						}
-						// Procesar informacion de la ciudad encontrada en el fichero.
+						// Procesar informacion de la ciudad encontrada en el fichero. Crear un objeto ciudad y aniadir
+						// dicha ciudad al mapa.
 						else {
-							nombreCiudadCoordenadas = cadenaFichero.split(" ");							
-							if (nombreCiudadCoordenadas.length < 3) {
-								br.close();
+							cadenasExtraidas = cadenaLeida.split(" ");
+							if (cadenasExtraidas.length < 3) {
+								brFichero.close();
 								System.out.println("Formato de fichero invalido");
 								return;
 							}
-
-							/*posEspacioBlanco1 = cadenaFichero.indexOf(' ');
-							if (posEspacioBlanco1 == -1) {
-
-							}*/
-							nombreCiudadA = nombreCiudadCoordenadas[0]; 
-									//cadenaFichero.substring(0, posEspacioBlanco1);
-							/*posEspacioBlanco2 = cadenaFichero.indexOf(' ', posEspacioBlanco1 + 1);
-							if (posEspacioBlanco2 == -1) {
-								br.close();
-								return;
-							}*/
-							coordX = Float.parseFloat(nombreCiudadCoordenadas[1]);
-									//Float.parseFloat(cadenaFichero.substring(posEspacioBlanco1 + 1, posEspacioBlanco2));
-							coordY = Float.parseFloat(nombreCiudadCoordenadas[2]);
-							//Float.parseFloat(cadenaFichero.substring(posEspacioBlanco2 + 1));
-							mapaEspania.aniadirCiudad(new Ciudad(nombreCiudadA, coordX, coordY));
-							Ciudad ciudadAniadida = mapaEspania.obtenerCiudad(nombreCiudadA);
-							System.out.println("Aniadida ciudad " + ciudadAniadida.getNombreCiudad() + " " + ciudadAniadida.getCoordX() + " "
+							mapaEspania.aniadirCiudad(new Ciudad(cadenasExtraidas[0], Float.parseFloat(cadenasExtraidas[1]), Float
+									.parseFloat(cadenasExtraidas[2])));
+							Ciudad ciudadAniadida = mapaEspania.obtenerCiudad(cadenasExtraidas[0]);
+							System.out.println("Aniadida ciudad: " + ciudadAniadida.getNombreCiudad() + " " + ciudadAniadida.getCoordX() + " "
 									+ ciudadAniadida.getCoordY());
 						}
 					}
@@ -93,57 +74,85 @@ public class PruebaTerminal {
 			} else {
 				// Finalizar sin exito porque no se ha encontrado la seccion del fichero que contiene las ciudades, es
 				// decir, no se ha encontrado la cadena @Ciudades.
-				br.close();
+				brFichero.close();
 				return;
 			}
-
 			// Si no se han creado ciudades al llegar aqui el fichero no esta
 			// bien construido.
 			if (mapaEspania.numeroCiudadesMapa() == 0) {
-				br.close();
+				brFichero.close();
 				return;
 			}
-
 			// Conitnuar procesando las carreteras que unen las ciudades.
-			while ((cadenaFichero = br.readLine()) != null) {
-				cadenaFichero = cadenaFichero.trim();
-				if (cadenaFichero.compareTo("") != 0) {
-					posEspacioBlanco1 = cadenaFichero.indexOf(' ');
-					if (posEspacioBlanco1 == -1) {
-						br.close();
+			while ((cadenaLeida = brFichero.readLine()) != null) {
+				cadenaLeida = cadenaLeida.trim();
+				if (cadenaLeida.compareTo("") != 0) {
+					cadenasExtraidas = cadenaLeida.split(" ");
+					if (cadenasExtraidas.length < 2) {
+						brFichero.close();
 						System.out.println("Formato de fichero invalido");
 						return;
 					}
-					nombreCiudadA = cadenaFichero.substring(0, posEspacioBlanco1);
-					nombreCiudadB = cadenaFichero.substring(posEspacioBlanco1 + 1);
-					mapaEspania.aniadirCarretera(nombreCiudadA, nombreCiudadB);
+					mapaEspania.aniadirCarretera(cadenasExtraidas[0], cadenasExtraidas[1]);
 					numCarreterasProcesadas += 1;
 				}
 			}
+			// Si al salir del bucle el numero de carreteras procesadas es nulo, entonces tras la etiqueta
+			// @Carreteras no habia nada y por tanto el fichero es erroneo.
 			if (numCarreterasProcesadas == 0) {
-				br.close();
+				brFichero.close();
 				System.out.println("Formato de fichero invalido");
 				return;
 			}
+
+			// ----- ----- ----- ----- ----- CODIGO DEPURACION ----- ----- ----- ----- -----
 			System.out.println("\nInspeccion de carreteras.\n");
-			Iterator<Entry<String, Ciudad>> it = mapaEspania.obtenerCiudades().entrySet().iterator();
-			Iterator<Entry<String, Float>> it2 = null;
-			Entry<String, Ciudad> entrada = null;
-			Entry<String, Float> entrada2 = null;
-			while (it.hasNext()) {
-				entrada = it.next();
-				System.out.println("Ciudad origen: " + entrada.getKey());
-				if (entrada.getValue().numeroCiudadesAdyacentes() != 0) {
-					it2 = entrada.getValue().obtenerCiudadesAdyacentes().entrySet().iterator();
-					while (it2.hasNext()) {
-						entrada2 = it2.next();
-						System.out.println("Ciudad destino: " + entrada2.getKey() + ", a una distancia de " + +entrada2.getValue() + " km.");
+			Iterator<Entry<String, Ciudad>> itSC = mapaEspania.obtenerCiudades().entrySet().iterator();
+			// Codigo nemotecnico SC -> String Ciudad.
+			Entry<String, Ciudad> entradaSC = null;
+			// Codigo nemotecnico SC -> String Float.
+			Iterator<Entry<String, Float>> itSF = null;
+			Entry<String, Float> entradaSF = null;
+			while (itSC.hasNext()) {
+				entradaSC = itSC.next();
+				System.out.println("Ciudad origen: " + entradaSC.getKey());
+				if (entradaSC.getValue().numeroCiudadesAdyacentes() != 0) {
+					itSF = entradaSC.getValue().obtenerCiudadesAdyacentes().entrySet().iterator();
+					while (itSF.hasNext()) {
+						entradaSF = itSF.next();
+						System.out.println("Ciudad destino: " + entradaSF.getKey() + ", a una distancia de " + +entradaSF.getValue() + " km.");
 					}
 				} else {
 					System.out.println("No esta conectada con otras ciudades.");
 				}
 				System.out.println("");
 			}
+			// ----- ----- ----- ----- ----- ----- ----- ----- ----- -----
+
+			// Menu de consola.
+			brConsola = new BufferedReader(new InputStreamReader(System.in));
+			do {
+				System.out.println("Que desea hacer?");
+				System.out.println("1.- Calcular el camino mas corto entre dos ciudades.");
+				System.out.println("2.- Finalizar la aplicacion.");
+				System.out.print("Introduzca la opcion que desee: ");
+				cadenaLeida = brConsola.readLine();
+				System.out.print("\n");
+				if (cadenaLeida.compareTo("1") == 0) {
+					System.out.print("Introduzca la ciudad origen: ");
+					nombreCiudadA = brConsola.readLine().trim();
+					System.out.print("");
+					System.out.print("Introduzca la ciudad destino: ");
+					nombreCiudadB = brConsola.readLine().trim();
+					System.out.println("");
+					System.out.println("CAMINO: " + mapaEspania.obtenerCamino(mapaEspania.dijkstra(nombreCiudadA), nombreCiudadB) + ".\n");
+				} else if (cadenaLeida.compareTo("2") == 0) {
+					System.out.println("Gracias por utilizar la aplicacion.\n");
+				} else {
+					System.out.println("Opcion no reconocida.\n");
+				}
+			} while (cadenaLeida.compareTo("2") != 0);
+
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		} catch (IOException ioe) {
@@ -151,7 +160,5 @@ public class PruebaTerminal {
 		} catch (NumberFormatException nfe) {
 			nfe.printStackTrace();
 		}
-
-		System.out.println("\n" + mapaEspania.obtenerCamino(mapaEspania.dijkstra("Huelva"), "Murcia"));
 	}
 }
