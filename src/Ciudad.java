@@ -3,7 +3,7 @@ import java.util.Map;
 
 /**
  * @author jfrascon
- * @version "%I%,%G% Clase que representa un nodo del grafo.
+ * @version "%I%, %G% Clase que representa un nodo del grafo.
  */
 
 public class Ciudad {
@@ -13,6 +13,16 @@ public class Ciudad {
 	private float coordY;
 	private Map<String, Float> ciudadesAdyacentes;
 
+	/**
+	 * Metodo constructor de la clase.
+	 * 
+	 * @param nombreCiudad
+	 * El nombre de la ciudad
+	 * @param coordX
+	 * La coordenada x de la ciudad con respecto al sistema de referencia del mapa.
+	 * @param coordY
+	 * La coordenada y de la ciudad con respecto al sistema de referencia del mapa.
+	 */
 	Ciudad(String nombreCiudad, float coordX, float coordY) {
 
 		this.nombreCiudad = nombreCiudad;
@@ -30,79 +40,107 @@ public class Ciudad {
 	}
 
 	/**
+	 * Metodo que devuelve el nombre de la ciudad.
 	 * 
-	 * @param nombreCiudad
-	 * @param coordX
-	 * @param coordY
-	 */
-
-	/**
-	 * 
-	 * @return
+	 * @return El nombre de la ciudad.
 	 */
 	public String getNombreCiudad() {
 		return nombreCiudad;
 	}
 
 	/**
+	 * Metodo que establece el nombre de la ciudad.
 	 * 
 	 * @param nombreCiudad
+	 * Nombre que desea dar a la ciudad.
 	 */
 	public void setNombreCiudad(String nombreCiudad) {
 		this.nombreCiudad = nombreCiudad;
 	}
 
 	/**
+	 * Metodo que devuelve la coordenada x de la ciudad en el sistema de referencia del mapa.
 	 * 
-	 * @return
+	 * @return La coordenada x de la ciudad en el sistema de referencia del mapa.
+	 */
+	float getCoordX() {
+		return coordX;
+	}
+
+	/**
+	 * Metodo que da valor a la coordenada x de la ciudad en el sistema de referencia del mapa.
+	 * 
+	 * @param coordX
+	 * Valor para la coordenada x de la ciudad en el sistema de referencia del mapa.
+	 */
+	public void setCoordX(float coordX) {
+		this.coordX = coordX;
+	}
+
+	/**
+	 * Metodo que devuelve la coordenada x de la ciudad en el sistema de referencia del mapa.
+	 * 
+	 * @return La coordenada x de la ciudad en el sistema de referencia del mapa.
 	 */
 	public float getCoordY() {
 		return coordY;
 	}
 
 	/**
+	 * Metodo que da valor a la coordenada y de la ciudad en el sistema de referencia del mapa.
 	 * 
 	 * @param coordY
+	 * Valor para la coordenada y de la ciudad en el sistema de referencia del mapa.
 	 */
 	public void setCoordY(float coordY) {
 		this.coordY = coordY;
 	}
 
 	/**
+	 * Metodo que aniade el nombre de una ciudad adyacente a la ciudad actual en un registro de ciudades adyacentes.
 	 * 
-	 * @return
+	 * @param nombreCiudadAdyacente
+	 * El nombre de la ciudad adyacente a la ciudad actual.
+	 * @param distanciaKM
+	 * La distancia en KM que separa la ciudad actual de la ciudad adyacente que se registra.
 	 */
-	public float getCoordX() {
-		return coordX;
+	public void aniadirCiudadAdyacente(String nombreCiudadAdyacente, float distanciaKM) {
+
+		ciudadesAdyacentes.put(nombreCiudadAdyacente, new Float(distanciaKM));
+
 	}
 
 	/**
+	 * Metodo que elimina una ciudad adyacente de la lista de ciudades adyacentes a esta ciudad.
 	 * 
-	 * @param coordX
+	 * @param nombreCiudadAdyacente
+	 * El nombre de la ciudad adyacente que se desea eliminar de la lista de ciudades adyacentes.
 	 */
-	public void setCoordX(float coordX) {
-		this.coordX = coordX;
-	}
+	public void eliminarCiudadVecina(String nombreCiudadAdyacente) {
 
-	public void aniadirCiudadAdyacente(String nombreCiudadVecina,
-			float distanciaKM) {
-
-		ciudadesAdyacentes.put(nombreCiudadVecina, new Float(distanciaKM));
+		ciudadesAdyacentes.remove(nombreCiudadAdyacente);
 
 	}
 
-	public void eliminarCiudadVecina(String ciudadVecina) {
-
-		ciudadesAdyacentes.remove(ciudadVecina);
-
-	}
-
-	public int numeroCiudadesVecinas() {
+	/**
+	 * Metodo que devuelve el numero de ciudades adyacentes a la ciudad actual.
+	 * 
+	 * @return El numero de ciudades adyacenes a la ciudad actual.
+	 */
+	public int numeroCiudadesAdyacentes() {
 
 		return ciudadesAdyacentes.size();
 
 	}
 
+	/**
+	 * Metodo que retorna el registro de ciudades adyacentes a la actual. En cada registro se puede obtener el nombre de
+	 * la ciudad adyacente y la distancia en KM que separa la ciudad actual de la ciudad adyacente.
+	 * 
+	 * @return Registro con el nombre de las ciudades adyacentes y la distancia que separa la ciudad actual de cada
+	 * ciudad adyacente.
+	 * @see Map
+	 */
 	public Map<String, Float> obtenerCiudadesAdyacentes() {
 
 		return ciudadesAdyacentes;

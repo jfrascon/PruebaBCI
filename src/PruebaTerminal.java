@@ -198,7 +198,7 @@ public class PruebaTerminal {
 
 				System.out.println("Ciudad origen: " + entrada.getKey());
 
-				if (entrada.getValue().numeroCiudadesVecinas() != 0) {
+				if (entrada.getValue().numeroCiudadesAdyacentes() != 0) {
 
 					it2 = entrada.getValue().obtenerCiudadesAdyacentes()
 							.entrySet().iterator();
