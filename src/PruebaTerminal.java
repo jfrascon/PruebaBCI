@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class PruebaTerminal {
 
@@ -198,7 +200,7 @@ public class PruebaTerminal {
 
 				if (entrada.getValue().numeroCiudadesVecinas() != 0) {
 
-					it2 = entrada.getValue().obtenerCiudadesVecinas()
+					it2 = entrada.getValue().obtenerCiudadesAdyacentes()
 							.entrySet().iterator();
 
 					while (it2.hasNext()) {
@@ -232,6 +234,11 @@ public class PruebaTerminal {
 			nfe.printStackTrace();
 
 		}
+		
+		System.out.println("\n"+mapaEspania.obtenerCamino(mapaEspania.dijkstra("Bilbao"), "Cordoba"));
+		
+		//System.out.println("\n"+mapaEspania.obtenerCamino(mapaEspania.dijkstra("Cordoba"), "Bilbao"));
+
 
 	}
 }
