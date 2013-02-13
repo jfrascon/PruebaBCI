@@ -39,3 +39,4 @@ insert into Ciudades (nombreCiudad, coordX, coordY) values ("Valladolid", -85.67
 insert into Ciudades (nombreCiudad, coordX, coordY) values ("Burgos", 0, 209.177);
 insert into Carreteras (nombreCiudadA, nombreCiudadB) values ("Vigo", "Oviedo");
 insert into Carreteras (nombreCiudadA, nombreCiudadB) values ("Oviedo, Bilbao");
+insert into Carreteras (nombreCiudadA, nombreCiudadB) values ("Bilbao, Zaragoza");
