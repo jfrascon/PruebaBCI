@@ -235,7 +235,7 @@ public class PruebaTerminal {
 
 		}
 		
-		System.out.println("\n"+mapaEspania.obtenerCamino(mapaEspania.dijkstra("Huelva"), "Burgos"));
+		System.out.println("\n"+mapaEspania.obtenerCamino(mapaEspania.dijkstra("Huelva"), "Murcia"));
 		
 		//System.out.println("\n"+mapaEspania.obtenerCamino(mapaEspania.dijkstra("Cordoba"), "Bilbao"));
 

@@ -21,3 +21,6 @@ Realizo varios 'syso' para depurar la salida del programa. La ruta entre dos ciu
 
 -
 Javadoc finalizado de la clase Ciudad.
+
+-
+Javadoc finalizado de la clase Mapa.

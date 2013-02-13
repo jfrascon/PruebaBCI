@@ -2,8 +2,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Clase que representa un nodo del grafo mapa.
+ * 
  * @author jfrascon
- * @version "%I%, %G% Clase que representa un nodo del grafo.
+ * @version "%I%, %G%
  */
 
 public class Ciudad {
@@ -125,7 +127,7 @@ public class Ciudad {
 	/**
 	 * Metodo que devuelve el numero de ciudades adyacentes a la ciudad actual.
 	 * 
-	 * @return El numero de ciudades adyacenes a la ciudad actual.
+	 * @return El numero de ciudades adyacenes a la ciudad actual. 0 si no hay ciudades adyacentes a la ciudad actual.
 	 */
 	public int numeroCiudadesAdyacentes() {
 
@@ -138,7 +140,7 @@ public class Ciudad {
 	 * la ciudad adyacente y la distancia en KM que separa la ciudad actual de la ciudad adyacente.
 	 * 
 	 * @return Registro con el nombre de las ciudades adyacentes y la distancia que separa la ciudad actual de cada
-	 * ciudad adyacente.
+	 * ciudad adyacente. Si no hay ciudades adyacentes el registro no es null y no posee entradas.
 	 * @see Map
 	 */
 	public Map<String, Float> obtenerCiudadesAdyacentes() {
