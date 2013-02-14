@@ -14,8 +14,8 @@ import java.util.Map.Entry;
 
 /**
  * Clase que representa la base de datos que contiene la informacion con la que se contruye el grafo de la aplicacion.
- * La base de datos puede ser un fichero de texto o bien una base de datos convencional como MySQL, etc. El usuario
- * puede especificar la fuente de donde se extrae la informacion.
+ * La base de datos puede ser un fichero de texto o bien una base de datos relacional como MySQL, etc. El usuario puede
+ * especificar la fuente de donde se extrae la informacion.
  * 
  * @author jfrascon
  * @version "%I%, %G%
@@ -23,12 +23,27 @@ import java.util.Map.Entry;
  */
 public class BaseDatos {
 
-	boolean fichero;
+	private boolean fichero;
 
+	/**
+	 * Constructor de la clase.
+	 * 
+	 * @param fichero
+	 * Variable que indica si se desea extraer la informacion con la que construir el mapa de un fichero de texto o de
+	 * una base de datos relacional. Un valor true significa extraer informacion de un fichero. Un valor false significa
+	 * extraer informacion de una base de datos relacional.
+	 */
 	public BaseDatos(boolean fichero) {
 		this.fichero = fichero;
 	}
 
+	/**
+	 * Metodo que construye un mapa a partir de la informacion obtenida de un fichero de texto o de una base de datos
+	 * relacional.
+	 * 
+	 * @return Mapa que representa el grafo con el que trabaja la aplicacion.
+	 * @see Mapa
+	 */
 	public Mapa obtenerMapa() {
 
 		BufferedReader br = null;
@@ -65,7 +80,7 @@ public class BaseDatos {
 				}
 				mapa = obtenerMapaFichero(nombreFichero);
 			} else {
-
+				// Comprobar que todos los datos necesrios para acceder a la base de datos relacional estan presentes.
 				String urlBD = br.readLine();
 				if (urlBD == null || (urlBD = urlBD.trim()).compareTo("") == 0) {
 					System.out.println("Formato de fichero invalido.");
@@ -87,10 +102,7 @@ public class BaseDatos {
 				cadenaBuscar = "@clave";
 				while ((cadenaLeida = br.readLine()) != null && cadenaLeida.trim().compareTo(cadenaBuscar) != 0) {
 				}
-				// Si cadenaLeida = null entonces el fichero no contenia la cadena cadenaBuscar. El fichero tiene
-				// un formato invalido.
 				if (cadenaLeida == null) {
-					// Se lanza excepcion y se captura mas abajo. Y luego se ejecuta el bloque finally.
 					System.out.println("Formato de fichero invalido.");
 					throw new IOException();
 				}
@@ -101,7 +113,6 @@ public class BaseDatos {
 				}
 				mapa = obtenerMapaBD(urlBD, usuario, clave.trim());
 			}
-
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		} catch (IOException e) {
@@ -118,6 +129,16 @@ public class BaseDatos {
 		return mapa;
 	}
 
+	/**
+	 * Este metodo construye un mapa a partir de la informacion almacenada en un fichero de texto, cuya ruyta y nombre
+	 * figuran en el string pasado como parametro.
+	 * 
+	 * @param nombreFichero
+	 * Nombre del fichero que contiene la informacion de ciudades y carreteras. El fichero incluye la ruta hasta el
+	 * mismo.
+	 * @return Mapa que representa el grafo con el que trabaja la aplicacion.
+	 * @see Mapa
+	 */
 	private Mapa obtenerMapaFichero(String nombreFichero) {
 
 		boolean inicioCarreteras = false;
@@ -127,7 +148,7 @@ public class BaseDatos {
 		BufferedReader brFichero = null;
 
 		Mapa mapa = new Mapa();
-		
+
 		System.out.println("\nUSANDO FICHERO COMO BASE DE DATOS.\n");
 
 		try {
@@ -235,6 +256,19 @@ public class BaseDatos {
 		return mapa;
 	}
 
+	/**
+	 * Este metodo construye un mapa a partir de la informacion almacenada en una base de datos relacional. Los datos
+	 * necesarios para acceder a la base de datos son pasados como parametros a la funcion.
+	 * 
+	 * @param urlBD
+	 * URL de la base de datos relacional. Incluye el puerto.
+	 * @param usuario
+	 * Usuario que tiene permiso de acceso a la base de datos relacional.
+	 * @param clave
+	 * Clave del usuario que tiene permiso de acceso a la base de datos relacional.
+	 * @return Mapa que representa el grafo con el que trabaja la aplicacion.
+	 * @see Mapa
+	 */
 	private Mapa obtenerMapaBD(String urlBD, String usuario, String clave) {
 		// String urlBD = "jdbc:mysql://localhost:3306/pruebabiicode";
 		// String usuario = "root";
@@ -244,23 +278,28 @@ public class BaseDatos {
 		Statement stmt = null;
 		ResultSet rs = null;
 		Mapa mapa = new Mapa();
-		
+
 		System.out.println("\nUSANDO BASE DE DATOS RELACIONAL.");
 		System.out.println(urlBD + " " + usuario + " " + clave + "\n");
-		
+
 		try {
 			// Cargar el driver.
 			Class.forName(jdbcDriver);
 			// Conexion a la base de datos.
 			conexion = DriverManager.getConnection(urlBD, usuario, clave);
+			// Crear la estructura que permite acceder a la base de datos.
 			stmt = conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			// Recuperar las ciudades de la base de datos.
 			rs = stmt.executeQuery("SELECT nombreCiudad, coordX, coordY FROM Ciudades");
+			// Recorrer todos los registros obtenidos de la base de datos extrayendo la informacion util.
 			while (rs.next()) {
 				mapa.aniadirCiudad(new Ciudad(rs.getString("nombreCiudad"), rs.getFloat("coordX"), rs.getFloat("coordY")));
 				Ciudad ciudadAniadida = mapa.obtenerCiudad(rs.getString("nombreCiudad"));
 				System.out.println("Ciudad: " + ciudadAniadida.getNombreCiudad() + " " + ciudadAniadida.getCoordX() + " " + ciudadAniadida.getCoordY());
 			}
+			// Recuperar todas las carreteras de la base de datos.
 			rs = stmt.executeQuery("SELECT nombreCiudadA, nombreCiudadb FROM Carreteras");
+			// Recorrer todos los registros obtenidos de la base de datos extrayendo la informacion util.
 			while (rs.next()) {
 				mapa.aniadirCarretera(rs.getString("nombreCiudadA"), rs.getString("nombreCiudadB"));
 			}

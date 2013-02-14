@@ -4,14 +4,14 @@ PruebaBCI
 Datos de configuración de las aplicaciones de demostración
 --------------------------------------------------------------------------------
 -
-En el directorio datos se encuentra el fichero BiiCodeEspania.txt que contiene el listado de ciudades y carreteras que han sido consideradas en la aplicación.
-Para ejecutar la aplicación PruebaTerminal -> java PruebaTerminal <ruta_a_dir_datos>/BiiCodeEspania.txt
+Las aplicaciones propuestas siguen el modelo MVC.
+En el directorio 'recursos' se encuentra el fichero que permite acceder a las ciudades y las carreteras bien en un fichero bien en una base de datos, a elección del usuario. 
 
 -
-En el directorio datos se puede encontrar un fichero sql, ficheroSQL_BD_pruebabiicode.sql, que automatiza el proceso de creación de las tablas en la BD creada para la aplicación dentro del SGBD MySQL.
+En el directorio recursos se puede encontrar un fichero sql, ficheroSQL_BD_pruebabiicode.sql, que automatiza el proceso de creación de las tablas en la BD creada para la aplicación dentro del SGBD MySQL.
 
 -
-Para la aplicación PruebaTerminalBD hay que configurar la variable de entorno CLASSPATH del modo:
+Para que las aplicaciones puedan acceder a la base de datos relacional, hay que configurar la variable de entorno CLASSPATH del modo:
 export CLASSPATH=.:<dir_a_libreria_mysql-connector>/mysql-connector-java-5.1.23-bin.jar:$CLASSPATH
 
 Diario
@@ -72,6 +72,5 @@ Función main que accede a la BD acabada. Probada la aplicación
 PruebaTerminalBD y funciona exactamente igual que la versión que lee de fichero, PruebaTerminal. Es necesario modificar el CLASSPATH de JAVA para que sepa donde buscar la librería mysql-connector-java-5.1.23-bin.jar.
 
 -
-INICIO SESIÓN.
 He separado las clases en diferentes paquetes para seguir el modelo
 MVC.
