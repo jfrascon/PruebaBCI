@@ -22,7 +22,6 @@ public class PruebaTerminal {
 
 		// Grafo de nodos de tipo ciudad.
 		Mapa mapaEspania = new Mapa();
-
 		// Lectura del fichero de ciudades y carreteras.
 		try {
 			brFichero = new BufferedReader(new FileReader(args[0]));
@@ -66,7 +65,7 @@ public class PruebaTerminal {
 							mapaEspania.aniadirCiudad(new Ciudad(cadenasExtraidas[0], Float.parseFloat(cadenasExtraidas[1]), Float
 									.parseFloat(cadenasExtraidas[2])));
 							Ciudad ciudadAniadida = mapaEspania.obtenerCiudad(cadenasExtraidas[0]);
-							System.out.println("Aniadida ciudad: " + ciudadAniadida.getNombreCiudad() + " " + ciudadAniadida.getCoordX() + " "
+							System.out.println("Ciudad: " + ciudadAniadida.getNombreCiudad() + " " + ciudadAniadida.getCoordX() + " "
 									+ ciudadAniadida.getCoordY());
 						}
 					}
@@ -159,6 +158,15 @@ public class PruebaTerminal {
 			ioe.printStackTrace();
 		} catch (NumberFormatException nfe) {
 			nfe.printStackTrace();
+		} finally {
+			try {
+				if (brFichero != null) {
+					brFichero.close();
+				}
+				brConsola.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

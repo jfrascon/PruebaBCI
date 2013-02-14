@@ -1,6 +1,15 @@
 PruebaBCI
 =========
 
+Datos de configuración de las aplicaciones de demostración
+--------------------------------------------------------------------------------
+
+-
+Para la aplicación PruebaTerminalBD hay que configurar la variable de entorno CLASSPATH del modo:
+export CLASSPATH=.:<dir_a_libreria_mysql-connector>/mysql-connector-java-5.1.23-bin.jar:$CLASSPATH
+
+Diario
+--------
 -
 Configurando el proyecto en Eclipse usando el plugin Egit.
 Leyendo sobre grafos.
@@ -51,3 +60,7 @@ Me creo un usuario en el servidor que puede desempeñar todos los roles para pode
   
 -
 SGBD MySQL instalado en el Mac y enlazado con Eclipse para manejarlo de manera cómoda. BD pruebabiicode creada con usuario root y clave ``''. Tablas Carreteras y Ciudades creadas. Datos de ciudades y carreteras insertados en las tablas. Crear una función que main que use la base de datos en lugar de leer de fichero.
+
+-
+Función main que accede a la BD acabada. Probada la aplicación
+PruebaTerminalBD y funciona exactamente igual que la versión que lee de fichero, PruebaTerminal. Es necesario modificar el CLASSPATH de JAVA para que sepa donde buscar la librería mysql-connector-java-5.1.23-bin.jar.
