@@ -1,0 +1,11 @@
+@Comentario
+Ruta y nombre del fichero que contiene la informacion de interes. La ruta es relativa al directorio bin de la aplicacion.
+No cambiar el orden de las palabras que comienzan por @
+@Fichero
+ ../recursos/BiiCodeEspania.txt
+@urlBD
+jdbc:mysql://localhost:3306/pruebabiicode
+@usuario
+root
+@clave
+

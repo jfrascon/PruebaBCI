@@ -1,3 +1,4 @@
+package modelo;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class Ciudad {
 	 * @param coordY
 	 * La coordenada y de la ciudad con respecto al sistema de referencia del mapa.
 	 */
-	Ciudad(String nombreCiudad, float coordX, float coordY) {
+	public Ciudad(String nombreCiudad, float coordX, float coordY) {
 
 		this.nombreCiudad = nombreCiudad;
 		this.coordX = coordX;
@@ -33,7 +34,7 @@ public class Ciudad {
 		ciudadesAdyacentes = new HashMap<String, Float>();
 	}
 
-	Ciudad() {
+	public Ciudad() {
 
 		this.nombreCiudad = null;
 		this.coordX = 0;
@@ -65,7 +66,7 @@ public class Ciudad {
 	 * 
 	 * @return La coordenada x de la ciudad en el sistema de referencia del mapa.
 	 */
-	float getCoordX() {
+	public float getCoordX() {
 		return coordX;
 	}
 

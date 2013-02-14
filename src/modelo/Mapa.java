@@ -1,7 +1,9 @@
+package modelo;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
 
 /**
  * Clase que representa un grafo de nodos del tipo ciudad.
@@ -17,7 +19,7 @@ public class Mapa {
 	/**
 	 * Constructor de la clase.
 	 */
-	Mapa() {
+	public Mapa() {
 
 		ciudades = new HashMap<String, Ciudad>();
 	}

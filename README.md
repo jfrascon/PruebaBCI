@@ -70,3 +70,8 @@ SGBD MySQL instalado en el Mac y enlazado con Eclipse para manejarlo de manera c
 -
 Función main que accede a la BD acabada. Probada la aplicación
 PruebaTerminalBD y funciona exactamente igual que la versión que lee de fichero, PruebaTerminal. Es necesario modificar el CLASSPATH de JAVA para que sepa donde buscar la librería mysql-connector-java-5.1.23-bin.jar.
+
+-
+INICIO SESIÓN.
+He separado las clases en diferentes paquetes para seguir el modelo
+MVC.
