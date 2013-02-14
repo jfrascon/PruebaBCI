@@ -3,6 +3,12 @@ PruebaBCI
 
 Datos de configuración de las aplicaciones de demostración
 --------------------------------------------------------------------------------
+-
+En el directorio datos se encuentra el fichero BiiCodeEspania.txt que contiene el listado de ciudades y carreteras que han sido consideradas en la aplicación.
+Para ejecutar la aplicación PruebaTerminal -> java PruebaTerminal <ruta_a_dir_datos>/BiiCodeEspania.txt
+
+-
+En el directorio datos se puede encontrar un fichero sql, ficheroSQL_BD_pruebabiicode.sql, que automatiza el proceso de creación de las tablas en la BD creada para la aplicación dentro del SGBD MySQL.
 
 -
 Para la aplicación PruebaTerminalBD hay que configurar la variable de entorno CLASSPATH del modo:
