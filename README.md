@@ -74,3 +74,6 @@ PruebaTerminalBD y funciona exactamente igual que la versión que lee de fichero,
 -
 He separado las clases en diferentes paquetes para seguir el modelo
 MVC.
+
+-
+Implementada la aplicación web.
